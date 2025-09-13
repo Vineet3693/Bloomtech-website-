@@ -1,0 +1,840 @@
+
+/* ================================
+   NEON TECH THEME VARIABLES
+   ================================ */
+
+:root {
+    /* Neon Tech Color Palette */
+    --primary-cyan: #00FFFF;
+    --primary-purple: #BF00FF;
+    --accent-lime: #32CD32;
+    --accent-pink: #FF1493;
+    --accent-electric: #00FF41;
+    
+    /* Dark Backgrounds */
+    --bg-deep: #000814;
+    --bg-secondary: #001122;
+    --bg-accent: #002233;
+    
+    /* Text Colors */
+    --text-neon: #00FFFF;
+    --text-secondary: #BF00FF;
+    --text-accent: rgba(0, 255, 255, 0.8);
+    
+    
+    /* Font Settings */
+    --font-family: 'Inter', sans-serif;
+    
+    /* Neon Glow Effects */
+    --neon-glow-cyan: 0 0 5px #00FFFF, 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 40px #00FFFF;
+    --neon-glow-purple: 0 0 5px #BF00FF, 0 0 10px #BF00FF, 0 0 20px #BF00FF, 0 0 40px #BF00FF;
+    --neon-glow-pink: 0 0 5px #FF1493, 0 0 10px #FF1493, 0 0 20px #FF1493, 0 0 40px #FF1493;
+    
+    /* Animation Settings */
+    --transition-fast: 0.3s;
+    --transition-medium: 0.6s;
+    --transition-slow: 1s;
+    
+    /* Border Settings */
+    --radius-small: 5px;
+    --radius-medium: 15px;
+    --radius-large: 25px;
+    --radius-round: 50px;
+}
+
+/* ================================
+   NEON TECH BASE STYLES
+   ================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-deep);
+    color: var(--text-neon);
+    overflow-x: hidden;
+    cursor: none;
+    line-height: 1.6;
+}
+
+/* ================================
+   NEON CURSOR SYSTEM
+   ================================ */
+
+.cursor {
+    position: fixed;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle, var(--primary-cyan), transparent);
+    border: 2px solid var(--primary-cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    box-shadow: var(--neon-glow-cyan);
+}
+
+.cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-pink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    box-shadow: 0 0 10px var(--accent-pink);
+}
+
+/* ================================
+   NEON ANIMATED BACKGROUND
+   ================================ */
+
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        radial-gradient(circle at 20% 80%, var(--primary-purple) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, var(--accent-lime) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, var(--accent-pink) 0%, transparent 50%),
+        var(--bg-deep);
+    animation: neonPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+/* ================================
+   NEON PARTICLES
+   ================================ */
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--primary-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--primary-cyan);
+    animation: neonFloat 8s infinite linear;
+}
+
+@keyframes neonFloat {
+    0% { 
+        transform: translateY(100vh) rotate(0deg) scale(0); 
+        opacity: 0; 
+    }
+    10% { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+    90% { 
+        opacity: 1; 
+    }
+    100% { 
+        transform: translateY(-100vh) rotate(360deg) scale(0); 
+        opacity: 0; 
+    }
+}
+
+/* ================================
+   NEON HEADER & NAVIGATION
+   ================================ */
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    background: rgba(0, 8, 20, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--primary-cyan);
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0, 255, 255, 0.3);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--primary-cyan);
+    text-shadow: var(--neon-glow-cyan);
+    transition: all var(--transition-fast) ease;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+    color: var(--accent-pink);
+    text-shadow: var(--neon-glow-pink);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--text-neon);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-small);
+    transition: all var(--transition-fast) ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.nav-link:hover {
+    color: var(--bg-deep);
+    background: var(--primary-cyan);
+    border-color: var(--primary-cyan);
+    box-shadow: var(--neon-glow-cyan);
+    transform: translateY(-3px);
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+.contact-btn {
+    background: linear-gradient(45deg, var(--accent-pink), var(--primary-purple)) !important;
+    color: white !important;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-large);
+    text-shadow: none;
+    box-shadow: var(--neon-glow-pink);
+    animation: neonPulseButton 2s ease-in-out infinite alternate;
+}
+
+.contact-btn:hover {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 0 30px var(--accent-pink);
+}
+
+@keyframes neonPulseButton {
+    0% { box-shadow: var(--neon-glow-pink); }
+    100% { box-shadow: 0 0 5px #FF1493, 0 0 10px #FF1493, 0 0 20px #FF1493, 0 0 40px #FF1493, 0 0 80px #FF1493; }
+}
+
+/* ================================
+   NEON HERO SECTION
+   ================================ */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bloom-text {
+    color: var(--primary-cyan);
+    text-shadow: var(--neon-glow-cyan);
+    display: inline-block;
+    transition: all var(--transition-fast) ease;
+    animation: neonFlicker 3s ease-in-out infinite alternate;
+}
+
+.bloom-text:hover {
+    color: var(--accent-pink);
+    text-shadow: var(--neon-glow-pink);
+    transform: scale(1.05);
+}
+
+.bloom-text:nth-child(2) {
+    animation-delay: 1s;
+    color: var(--primary-purple);
+    text-shadow: var(--neon-glow-purple);
+}
+
+.bloom-text:nth-child(3) {
+    animation-delay: 2s;
+    color: var(--accent-lime);
+    text-shadow: 0 0 5px #32CD32, 0 0 10px #32CD32, 0 0 20px #32CD32;
+}
+
+@keyframes neonFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    color: var(--text-accent);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+/* ================================
+   NEON GLOW CARDS
+   ================================ */
+
+.glow-card {
+    background: rgba(0, 8, 20, 0.8);
+    border: 2px solid var(--primary-cyan);
+    border-radius: var(--radius-medium);
+    padding: 3rem;
+    box-shadow: var(--neon-glow-cyan);
+    transition: all var(--transition-medium) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.glow-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary-cyan), var(--accent-pink), var(--primary-purple), var(--accent-lime));
+    border-radius: var(--radius-medium);
+    z-index: -1;
+    animation: neonBorderRotate 4s linear infinite;
+    opacity: 0;
+}
+
+.glow-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--accent-pink);
+    box-shadow: var(--neon-glow-pink);
+}
+
+.glow-card:hover::before {
+    opacity: 1;
+}
+
+@keyframes neonBorderRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.card-title {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-cyan);
+    text-shadow: var(--neon-glow-cyan);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-subtitle {
+    color: var(--accent-pink);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    text-shadow: var(--neon-glow-pink);
+    text-transform: uppercase;
+}
+
+.card-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-accent);
+}
+
+/* ================================
+   NEON SERVICES SECTION
+   ================================ */
+
+.services {
+    padding: 8rem 2rem;
+    position: relative;
+}
+
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 4rem;
+    color: var(--primary-cyan);
+    text-shadow: var(--neon-glow-cyan);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: neonPulseText 3s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulseText {
+    0% { text-shadow: var(--neon-glow-cyan); }
+    100% { text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 40px #00FFFF, 0 0 80px #00FFFF; }
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+/* ================================
+   NEON SERVICE CARDS
+   ================================ */
+
+.service-card {
+    background: rgba(0, 8, 20, 0.9);
+    border: 1px solid var(--primary-purple);
+    border-radius: var(--radius-small);
+    padding: 2.5rem;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(191, 0, 255, 0.2), transparent);
+    transition: left 0.8s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-15px) rotateX(5deg);
+    border-color: var(--accent-pink);
+    box-shadow: 0 20px 40px rgba(255, 20, 147, 0.4);
+    background: rgba(0, 17, 34, 0.9);
+}
+
+.service-card:hover::before {
+    left: 100%;
+}
+
+.service-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--primary-cyan);
+    text-shadow: 0 0 10px var(--primary-cyan);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.service-description {
+    line-height: 1.7;
+    color: var(--text-accent);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+/* ================================
+   NEON COLOR ZONES
+   ================================ */
+
+
+.color-zone-1:hover {
+    background: rgba(0, 255, 255, 0.1);
+    border-color: var(--primary-cyan);
+    box-shadow: var(--neon-glow-cyan);
+}
+
+.color-zone-2:hover {
+    background: rgba(255, 20, 147, 0.1);
+    border-color: var(--accent-pink);
+    box-shadow: var(--neon-glow-pink);
+}
+
+.color-zone-3:hover {
+    background: rgba(191, 0, 255, 0.1);
+    border-color: var(--primary-purple);
+    box-shadow: var(--neon-glow-purple);
+}
+
+/* ================================
+   NEON MAGNETIC BUTTONS
+   ================================ */
+
+.magnetic-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, var(--primary-purple), var(--accent-pink));
+    color: var(--bg-deep);
+    text-decoration: none;
+    border-radius: var(--radius-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all var(--transition-fast) ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+    border: 2px solid transparent;
+    box-shadow: 0 0 20px rgba(191, 0, 255, 0.5);
+}
+
+.magnetic-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.magnetic-btn:hover {
+    color: white;
+    border-color: var(--accent-pink);
+    box-shadow: var(--neon-glow-pink);
+    transform: translateY(-3px);
+}
+
+.magnetic-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* ================================
+   NEON NEWS SECTION
+   ================================ */
+
+.news-meta {
+    color: var(--accent-lime);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px var(--accent-lime);
+    letter-spacing: 1px;
+}
+
+/* ================================
+   NEON RECRUITMENT SECTION
+   ================================ */
+
+.recruitment-card {
+    text-align: center;
+    grid-column: 1 / -1;
+    border: 2px solid var(--accent-pink);
+    box-shadow: var(--neon-glow-pink);
+}
+
+.recruitment-title {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-cyan);
+    text-shadow: var(--neon-glow-cyan);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.recruitment-subtitle {
+    color: var(--accent-pink);
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    text-shadow: var(--neon-glow-pink);
+    text-transform: uppercase;
+}
+
+.recruitment-description {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--text-accent);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.careers-btn {
+    background: linear-gradient(45deg, var(--accent-lime), var(--primary-cyan)) !important;
+    font-size: 1.2rem;
+    padding: 1.2rem 2.5rem;
+    box-shadow: 0 0 30px rgba(50, 205, 50, 0.5);
+}
+
+.careers-btn:hover {
+    box-shadow: 0 0 5px #32CD32, 0 0 10px #32CD32, 0 0 20px #32CD32, 0 0 40px #32CD32;
+}
+
+/* ================================
+   NEON FOOTER
+   ================================ */
+
+#footer {
+    background: rgba(0, 8, 20, 0.95);
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 2px solid var(--primary-cyan);
+    box-shadow: 0 -5px 20px rgba(0, 255, 255, 0.3);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    color: var(--primary-cyan);
+    text-shadow: var(--neon-glow-cyan);
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.footer-column .nav-link {
+    padding: 0.5rem 0;
+    border-radius: 0;
+    border: none;
+    color: var(--text-accent);
+    font-weight: 500;
+}
+
+.footer-column .nav-link:hover {
+    color: var(--accent-pink);
+    text-shadow: 0 0 10px var(--accent-pink);
+    background: transparent;
+}
+
+.footer-copyright {
+    color: var(--primary-cyan);
+    font-weight: 600;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
+    text-shadow: 0 0 10px var(--primary-cyan);
+}
+
+/* ================================
+   NEON RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 1024px) {
+    .hero-container {
+        gap: 2rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .glow-card,
+    .service-card {
+        padding: 2rem;
+    }
+    
+    .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================
+   NEON SPECIAL EFFECTS
+   ================================ */
+
+/* Electric Border Animation */
+.electric-border {
+    position: relative;
+}
+
+.electric-border::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(45deg, var(--primary-cyan), var(--accent-pink), var(--primary-purple), var(--accent-lime));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: electricFlow 3s linear infinite;
+}
+
+@keyframes electricFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* Glitch Effect */
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.glitch::before {
+    animation: glitch-1 0.5s infinite;
+    color: var(--accent-pink);
+    z-index: -1;
+}
+
+.glitch::after {
+    animation: glitch-2 0.5s infinite;
+    color: var(--accent-lime);
+    z-index: -2;
+}
+
+@keyframes glitch-1 {
+    0%, 14%, 15%, 49%, 50%, 99%, 100% {
+        transform: translate(0);
+    }
+    15%, 49% {
+        transform: translate(-2px, 2px);
+    }
+}
+
+@keyframes glitch-2 {
+    0%, 20%, 21%, 62%, 63%, 99%, 100% {
+        transform: translate(0);
+    }
+    21%, 62% {
+        transform: translate(2px, -2px);
+    }
+}
+
+/* Scan Line Effect */
+.scan-lines {
+    position: relative;
+    overflow: hidden;
+}
+
+.scan-lines::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        transparent 50%,
+        rgba(0, 255, 255, 0.03) 50%,
+        rgba(0, 255, 255, 0.05) 51%,
+        transparent 52%
+    );
+    background-size: 100% 4px;
+    animation: scanLines 0.1s linear infinite;
+}
+
+@keyframes scanLines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
