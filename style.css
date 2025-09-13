@@ -1,0 +1,809 @@
+
+/* ================================
+   GLOBAL STYLES & VARIABLES
+   ================================ */
+
+/* CSS Custom Properties - CHANGE THESE TO CUSTOMIZE COLORS */
+:root {
+    /* Primary Color Palette */
+    --primary-blue: #0066FF;
+    --primary-cyan: #00FFFF;
+    --accent-green: #39FF14;
+    --accent-purple: #8A2BE2;
+    --accent-orange: #FF6B35;
+    
+    /* Background Colors */
+    --bg-dark: #0A1628;
+    --bg-secondary: #1B2951;
+    
+    /* Text Colors */
+    --text-primary: #E0FFFF;
+    --text-secondary: rgba(224, 255, 255, 0.8);
+    
+    /* Font Settings - CHANGE FONT FAMILY HERE */
+    --font-family: 'Inter', sans-serif;
+    
+    /* Animation Durations - ADJUST SPEED HERE */
+    --transition-fast: 0.3s;
+    --transition-medium: 0.6s;
+    --transition-slow: 1s;
+    
+    /* Border Radius - CHANGE ROUNDNESS */
+    --radius-small: 10px;
+    --radius-medium: 20px;
+    --radius-large: 30px;
+    --radius-round: 50px;
+}
+
+/* RESET & BASE STYLES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    cursor: none; /* Remove this line to use default cursor */
+    line-height: 1.6;
+}
+
+/* ================================
+   CUSTOM CURSOR SYSTEM
+   ================================ */
+
+/* Main Cursor - CUSTOMIZE SIZE AND COLORS HERE */
+.cursor {
+    position: fixed;
+    width: 20px; /* Change cursor size */
+    height: 20px;
+    background: linear-gradient(45deg, var(--primary-cyan), var(--primary-blue));
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); /* Glow effect */
+}
+
+/* Cursor Trail Effect - ADJUST TRAIL LENGTH BY CREATING MORE/LESS IN JS */
+.cursor-trail {
+    position: fixed;
+    width: 6px; /* Trail dot size */
+    height: 6px;
+    background: rgba(0, 255, 255, 0.4); /* Trail color */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* ================================
+   ANIMATED BACKGROUND
+   ================================ */
+
+/* Background Animation - CHANGE GRADIENT COLORS HERE */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(45deg, var(--bg-dark), var(--bg-secondary), var(--bg-dark));
+    background-size: 400% 400%; /* Size of gradient for animation */
+    animation: gradientShift 8s ease infinite; /* CHANGE DURATION HERE */
+}
+
+/* Background Gradient Animation - MODIFY TIMING HERE */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ================================
+   FLOATING PARTICLES SYSTEM
+   ================================ */
+
+/* Particle Styling - CUSTOMIZE PARTICLE APPEARANCE */
+.particle {
+    position: absolute;
+    width: 4px; /* Particle size */
+    height: 4px;
+    background: rgba(0, 255, 255, 0.3); /* Particle color */
+    border-radius: 50%;
+    animation: float 6s infinite linear; /* CHANGE SPEED HERE */
+}
+
+/* Particle Animation - MODIFY MOVEMENT PATTERN */
+@keyframes float {
+    0% { 
+        transform: translateY(100vh) rotate(0deg); 
+        opacity: 0; 
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { 
+        transform: translateY(-100vh) rotate(360deg); 
+        opacity: 0; 
+    }
+}
+
+/* ================================
+   HEADER & NAVIGATION
+   ================================ */
+
+/* Header Container - MODIFY HEADER APPEARANCE */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem; /* Header padding */
+    background: rgba(10, 22, 40, 0.9); /* Header background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    z-index: 1000;
+    transition: all var(--transition-fast) ease;
+}
+
+/* Navigation Container */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Max width - CHANGE FOR WIDER/NARROWER */
+    margin: 0 auto;
+}
+
+/* Logo Styling - CUSTOMIZE LOGO APPEARANCE */
+.logo {
+    font-size: 1.8rem; /* Logo size */
+    font-weight: 800;
+    background: linear-gradient(45deg, var(--primary-cyan), var(--primary-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all var(--transition-fast) ease;
+}
+
+/* Logo Hover Effect */
+.logo:hover {
+    transform: scale(1.1); /* Hover scale */
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem; /* Space between menu items */
+}
+
+.nav-item {
+    position: relative;
+}
+
+/* Navigation Links - CUSTOMIZE MENU ITEM STYLE */
+.nav-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-large);
+    transition: all var(--transition-fast) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Navigation Link Hover Animation */
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-link:hover {
+    background: linear-gradient(45deg, rgba(0, 102, 255, 0.2), rgba(0, 255, 255, 0.2));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+/* Contact Button - CUSTOMIZE CTA BUTTON */
+.contact-btn {
+    background: linear-gradient(45deg, var(--accent-green), var(--primary-cyan)) !important;
+    color: var(--bg-dark) !important;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-round);
+    transition: all var(--transition-fast) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(45deg, var(--accent-orange), var(--accent-purple));
+    transition: width var(--transition-fast) ease;
+    z-index: -1;
+}
+
+.contact-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(57, 255, 20, 0.4);
+}
+
+.contact-btn:hover::before {
+    width: 100%;
+}
+
+/* ================================
+   HERO SECTION
+   ================================ */
+
+/* Hero Container - MODIFY HERO LAYOUT */
+.hero {
+    min-height: 100vh; /* Full screen height */
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two column layout */
+    gap: 4rem; /* Space between columns */
+    align-items: center;
+}
+
+/* Hero Content Typography */
+.hero-content h1 {
+    font-size: 4rem; /* Main heading size - CHANGE HERE */
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+/* Animated Text Effect - CUSTOMIZE TEXT COLORS */
+.bloom-text {
+    background: linear-gradient(45deg, var(--accent-green), var(--primary-cyan), var(--accent-purple));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGradient 3s ease infinite; /* CHANGE ANIMATION SPEED */
+    display: inline-block;
+    transition: all var(--transition-fast) ease;
+}
+
+.bloom-text:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgba(57, 255, 20, 0.5));
+}
+
+/* Text Gradient Animation */
+@keyframes textGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Hero Description */
+.hero-description {
+    font-size: 1.2rem; /* Description text size */
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    color: var(--text-secondary);
+    position: relative;
+}
+
+/* ================================
+   GLOW CARDS SYSTEM
+   ================================ */
+
+/* Glow Card Base - MODIFY CARD APPEARANCE */
+.glow-card {
+    background: rgba(0, 255, 255, 0.05); /* Card background */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: var(--radius-medium);
+    padding: 3rem; /* Card padding */
+    transition: all var(--transition-fast) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glow Card Shimmer Effect */
+.glow-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.glow-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+    border-color: rgba(57, 255, 20, 0.5);
+}
+
+.glow-card:hover::before {
+    opacity: 1;
+    animation: shimmer 1.5s ease;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Card Content Styles */
+.card-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-green);
+}
+
+.card-subtitle {
+    color: var(--primary-cyan);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.card-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+/* ================================
+   SERVICES SECTION
+   ================================ */
+
+/* Services Section Container */
+.services {
+    padding: 8rem 2rem; /* Section padding - ADJUST SPACING */
+    position: relative;
+}
+
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Section Title - CUSTOMIZE SECTION HEADINGS */
+.section-title {
+    text-align: center;
+    font-size: 3rem; /* Section title size */
+    font-weight: 700;
+    margin-bottom: 3rem;
+    background: linear-gradient(45deg, var(--primary-blue), var(--primary-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Services Grid Layout */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* CHANGE MIN WIDTH */
+    gap: 2rem; /* Grid gap */
+}
+
+/* ================================
+   SERVICE CARDS
+   ================================ */
+
+/* Service Card Base - MAIN CARD STYLING */
+.service-card {
+    background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 255, 255, 0.05));
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: var(--radius-medium);
+    padding: 2.5rem; /* Card padding */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Service Card Slide Effect */
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-15px) rotateX(5deg); /* 3D hover effect */
+    box-shadow: 0 25px 50px rgba(0, 255, 255, 0.3);
+    border-color: rgba(57, 255, 20, 0.6);
+}
+
+.service-card:hover::before {
+    left: 100%;
+}
+
+/* Service Card Content */
+.service-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--accent-green);
+}
+
+.service-description {
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* ================================
+   COLOR ZONES SYSTEM
+   ================================ */
+
+/* Color Zone 1 - Green/Cyan Theme */
+.color-zone-1:hover {
+    background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), rgba(0, 255, 255, 0.05));
+}
+
+/* Color Zone 2 - Purple/Orange Theme */
+.color-zone-2:hover {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(255, 107, 53, 0.05));
+}
+
+/* Color Zone 3 - Blue/Green Theme */
+.color-zone-3:hover {
+    background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(57, 255, 20, 0.05));
+}
+
+/* ================================
+   MAGNETIC BUTTONS
+   ================================ */
+
+/* Magnetic Button Base - CUSTOMIZE BUTTON STYLE */
+.magnetic-btn {
+    display: inline-block;
+    padding: 1rem 2rem; /* Button padding */
+    background: linear-gradient(45deg, var(--accent-purple), var(--accent-orange));
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-round);
+    font-weight: 600;
+    transition: all var(--transition-fast) ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+/* Magnetic Button Ripple Effect */
+.magnetic-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.magnetic-btn:hover::before {
+    width: 300px; /* Ripple size */
+    height: 300px;
+}
+
+/* ================================
+   NEWS SECTION
+   ================================ */
+
+/* News Meta Information */
+.news-meta {
+    color: var(--accent-orange);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* ================================
+   RECRUITMENT SECTION
+   ================================ */
+
+/* Recruitment Card - Full Width CTA */
+.recruitment-card {
+    text-align: center;
+    grid-column: 1 / -1; /* Span full width */
+}
+
+.recruitment-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-purple);
+}
+
+.recruitment-subtitle {
+    color: var(--accent-orange);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.recruitment-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.careers-btn {
+    background: linear-gradient(45deg, var(--accent-green), var(--primary-cyan)) !important;
+    font-size: 1.1rem;
+    padding: 1.2rem 2.5rem;
+}
+
+/* ================================
+   FOOTER SECTION
+   ================================ */
+
+/* Footer Container */
+#footer {
+    background: rgba(10, 22, 40, 0.9); /* Footer background */
+    padding: 3rem 2rem; /* Footer padding */
+    text-align: center;
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Footer Logo */
+.footer-logo {
+    margin-bottom: 2rem;
+    font-size: 2rem; /* Footer logo size */
+}
+
+/* Footer Links Grid */
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-column .nav-link {
+    padding: 0.3rem 0;
+    border-radius: 0;
+}
+
+/* Footer Copyright */
+.footer-copyright {
+    color: var(--primary-cyan);
+    font-weight: 500;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+    .hero-container {
+        gap: 2rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 3rem; /* Smaller heading on tablet */
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* Hide navigation menu on mobile - ADD HAMBURGER MENU HERE */
+    .nav-menu {
+        display: none;
+    }
+    
+    /* Single column layout on mobile */
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+    }
+    
+    /* Smaller text on mobile */
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    /* Single column services on mobile */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Adjust card padding on mobile */
+    .glow-card,
+    .service-card {
+        padding: 1.5rem;
+    }
+    
+    /* Smaller footer links on mobile */
+    .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================
+   ANIMATION UTILITIES
+   ================================ */
+
+/* Fade In Animation - APPLIED BY JAVASCRIPT */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--transition-medium) ease, transform var(--transition-medium) ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ripple Effect Animation - ADDED BY JAVASCRIPT */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ================================
+   CUSTOM SCROLLBAR
+   ================================ */
+
+/* Webkit Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary-cyan), var(--primary-blue));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--accent-green), var(--primary-cyan));
+}
+
+/* ================================
+   ACCESSIBILITY STYLES
+   ================================ */
+
+/* Focus Styles for Keyboard Navigation */
+a:focus,
+button:focus {
+    outline: 2px solid var(--primary-cyan);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+    .glow-card,
+    .service-card {
+        border: 2px solid var(--primary-cyan);
+    }
+    
+    .nav-link:hover {
+        background: var(--primary-cyan);
+        color: var(--bg-dark);
+    }
+}
+
+/* ================================
+   PRINT STYLES
+   ================================ */
+
+@media print {
+    .cursor,
+    .cursor-trail,
+    .particle,
+    .bg-animation {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .glow-card,
+    .service-card {
+        border: 1px solid black;
+        box-shadow: none;
+    }
+}
